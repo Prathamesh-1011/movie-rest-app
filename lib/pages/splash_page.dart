@@ -16,9 +16,17 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 1)).then(
+      (_) => widget.onInitializationComplete(),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flickd',
+      title: 'MovieApp',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Center(
         child: Container(
