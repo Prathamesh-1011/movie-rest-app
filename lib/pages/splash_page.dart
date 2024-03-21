@@ -8,6 +8,9 @@ import 'package:get_it/get_it.dart';
 //Model
 import '../models/app_config.dart';
 
+//Services
+import '../services/http_service.dart';
+
 class SplashPage extends StatefulWidget {
   final VoidCallback onInitializationComplete;
 
@@ -45,6 +48,10 @@ class _SplashPageState extends State<SplashPage> {
         BASE_IMAGE_API_URL: configData['BASE_IMAGE_API_URL'],
         API_KEY: configData['API_KEY'],
       ),
+    );
+
+    getIt.registerSingleton<HTTPService>(
+      HTTPService(),
     );
   }
 
