@@ -8,10 +8,14 @@ class MainPage extends ConsumerWidget {
   double? _deviceHeight;
   double? _deviceWidth;
 
+  TextEditingController? _searchTextFieldController;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
+
+    _searchTextFieldController = TextEditingController();
     return _buildUI();
   }
 
@@ -25,6 +29,7 @@ class MainPage extends ConsumerWidget {
           alignment: Alignment.center,
           children: [
             _backgroundWidget(),
+            _foregroundWidgets(),
           ],
         ),
       ),
@@ -50,6 +55,64 @@ class MainPage extends ConsumerWidget {
             color: Colors.black.withOpacity(0.2),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _foregroundWidgets() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, _deviceHeight! * 0.02, 0, 0),
+      width: _deviceWidth! * 0.90,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _topBarWidget(),
+          Container(
+            height: _deviceHeight! * 0.83,
+            padding: EdgeInsets.symmetric(vertical: _deviceHeight! * 0.01),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _topBarWidget() {
+    return Container(
+      height: _deviceHeight! * 0.08,
+      decoration: BoxDecoration(
+        color: Colors.black54,
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _searchFieldWidget(),
+        ],
+      ),
+    );
+  }
+
+  Widget _searchFieldWidget() {
+    final _border = InputBorder.none;
+    return Container(
+      width: _deviceWidth! * 0.50,
+      height: _deviceHeight! * 0.05,
+      child: TextField(
+        controller: _searchTextFieldController,
+        onSubmitted: (_input) {},
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+            focusedBorder: _border,
+            border: _border,
+            prefixIcon: Icon(Icons.search, color: Colors.white24),
+            hintStyle: TextStyle(color: Colors.white54),
+            filled: false,
+            fillColor: Colors.white24,
+            hintText: 'Search....'),
       ),
     );
   }
