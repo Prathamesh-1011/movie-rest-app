@@ -1,4 +1,6 @@
 //Packages
+// ignore_for_file: unused_import, unused_field
+
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 

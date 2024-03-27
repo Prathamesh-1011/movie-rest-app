@@ -1,16 +1,23 @@
-// ignore_for_file: prefer_const_constructors
-
+// ignore_for_file: prefer_const_constructors, must_be_immutable, sort_child_properties_last, prefer_const_declarations, no_leading_underscores_for_local_identifiers, sized_box_for_whitespace
+// Packages
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Models
 import '../models/serach_category.dart';
+import '../models/movie.dart';
+
+//Widgets
+import '../widgets/movie_tile.dart';
 
 class MainPage extends ConsumerWidget {
   double? _deviceHeight;
   double? _deviceWidth;
 
   TextEditingController? _searchTextFieldController;
+
+  MainPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,6 +30,7 @@ class MainPage extends ConsumerWidget {
 
   Widget _buildUI() {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       body: Container(
         height: _deviceHeight,
@@ -74,6 +82,7 @@ class MainPage extends ConsumerWidget {
           Container(
             height: _deviceHeight! * 0.83,
             padding: EdgeInsets.symmetric(vertical: _deviceHeight! * 0.01),
+            child: _moviesListViewWidget(),
           )
         ],
       ),
@@ -157,5 +166,46 @@ class MainPage extends ConsumerWidget {
         ),
       ],
     );
+  }
+
+  Widget _moviesListViewWidget() {
+    final List<Movie> _movies = [];
+
+    for (var i = 0; i < 20; i++) {
+      _movies.add(
+        Movie(
+          name: "Mortal Kombat",
+          language: "EN",
+          isAdult: false,
+          description:
+              "Mortal Kombat is a 2021 American martial arts fantasy film co-produced and directed by Simon McQuoid (in his feature directorial debut) from a screenplay by Greg Russo and Dave Callaham, based on the video game series of the same name created by Ed Boon and John Tobias. The film serves as a reboot and as the third installment of the Mortal Kombat film series.[4] It stars Lewis Tan, Jessica McNamee, Josh Lawson, Tadanobu Asano, Mehcad Brooks, Ludi Lin, Chin Han, Max Huang, Joe Taslim, and Hiroyuki Sanada.[5] The film follows Cole Young, a washed-up mixed martial arts fighter who is unaware of his hidden lineage or why the assassin Sub-Zero is hunting him down. Concerned for the safety of his family, he seeks out a clique of fighters that were chosen to defend Earthrealm against Outworld.",
+          posterPath: "/xGu0F1T3WmPsAcQEQJfnG7Ud9f8.jpg",
+          backdropPath: "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
+          rating: 7.8,
+          releaseDate: "2021-04-07",
+        ),
+      );
+    }
+    if (_movies.length != 0) {
+      return ListView.builder(
+        itemCount: _movies.length,
+        itemBuilder: (BuildContext _context, int _count) {
+          return Padding(
+            padding: EdgeInsets.symmetric(
+                vertical: _deviceHeight! * 0.01, horizontal: 0),
+            child: GestureDetector(
+              onTap: () {},
+              child: Text(_movies as String),
+            ),
+          );
+        },
+      );
+    } else {
+      return Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.white,
+        ),
+      );
+    }
   }
 }
