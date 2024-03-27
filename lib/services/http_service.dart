@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers, body_might_complete_normally_nullable, avoid_print, deprecated_member_use
-
 import '../models/app_config.dart';
 
 //Packages

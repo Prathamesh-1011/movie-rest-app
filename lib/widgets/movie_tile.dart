@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 //Packages
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
