@@ -46,4 +46,20 @@ class MovieService {
       throw Exception('Couldn\'t load upcoming movies.');
     }
   }
+
+  Future<List<Movie>?> searchMovies(String? _seachTerm, {int? page}) async {
+    Response? _response = await _http.get('/search/movie', query: {
+      'query': _seachTerm,
+      'page': page,
+    });
+    if (_response!.statusCode == 200) {
+      Map _data = _response.data;
+      List<Movie>? _movies = _data['results'].map<Movie>((_movieData) {
+        return Movie.fromJson(_movieData);
+      }).toList();
+      return _movies;
+    } else {
+      throw Exception('Couldn\'t perform movies search.');
+    }
+  }
 }

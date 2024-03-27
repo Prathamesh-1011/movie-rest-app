@@ -35,6 +35,9 @@ class MainPage extends ConsumerWidget {
     _deviceWidth = MediaQuery.of(context).size.width;
 
     _searchTextFieldController = TextEditingController();
+
+    _searchTextFieldController!.text = _mainPageData.searchText!;
+
     return _buildUI();
   }
 
@@ -125,7 +128,8 @@ class MainPage extends ConsumerWidget {
       height: _deviceHeight! * 0.05,
       child: TextField(
         controller: _searchTextFieldController,
-        onSubmitted: (_input) {},
+        onSubmitted: (_input) =>
+            _mainPageDataController.updateTextSearch(_input),
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
             focusedBorder: _border,
